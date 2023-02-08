@@ -1,0 +1,5 @@
+mq:
+  broker: "amqp://guest:guest@localhost:5672/"
+  default_queue: "testQ"
+  task_retry_delay: 60
+  task_retry_count: 3
