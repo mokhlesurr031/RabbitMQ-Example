@@ -7,7 +7,6 @@ import (
 	"log"
 )
 
-// serveCmd represents the serve command
 var receiveCmd = &cobra.Command{
 	Use:   "receive",
 	Short: "Receive...",
@@ -20,7 +19,8 @@ func init() {
 }
 
 func receive(cmd *cobra.Command, args []string) {
-	ch, mq, err := config.GetMQConnection()
+	taskName := config.BasicTask
+	ch, mq, err := config.GetMQConnection(taskName)
 	if err != nil {
 		log.Println(err)
 	}

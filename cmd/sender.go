@@ -7,7 +7,6 @@ import (
 	"log"
 )
 
-// serveCmd represents the serve command
 var sendCmd = &cobra.Command{
 	Use:   "send",
 	Short: "Sender...",
@@ -20,10 +19,12 @@ func init() {
 }
 
 func send(cmd *cobra.Command, args []string) {
-	ch, mq, err := config.GetMQConnection()
+	taskName := config.BasicTask
+	taskBody := config.BasicTaskBody
+	ch, mq, err := config.GetMQConnection(taskName)
 	if err != nil {
 		log.Println(err)
 	}
-	sender.Send(ch, mq)
+	sender.Send(ch, mq, taskBody)
 
 }

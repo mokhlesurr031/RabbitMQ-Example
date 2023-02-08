@@ -1,7 +1,6 @@
 package config
 
 import (
-	"fmt"
 	amqp "github.com/rabbitmq/amqp091-go"
 	"log"
 )
@@ -12,11 +11,8 @@ func failOnError(err error, msg string) {
 	}
 }
 
-func GetMQConnection() (ch *amqp.Channel, queue amqp.Queue, err error) {
-	Init()
+func GetMQConnection(taskName string) (ch *amqp.Channel, queue amqp.Queue, err error) {
 	mq := MQ()
-	fmt.Println(mq.Broker)
-
 	conn, err := amqp.Dial(mq.Broker)
 	failOnError(err, "Failed to connect to RabbitMQ")
 	//defer conn.Close()
@@ -26,12 +22,12 @@ func GetMQConnection() (ch *amqp.Channel, queue amqp.Queue, err error) {
 	//defer ch.Close()
 
 	q, err := ch.QueueDeclare(
-		"hello", // name
-		false,   // durable
-		false,   // delete when unused
-		false,   // exclusive
-		false,   // no-wait
-		nil,     // arguments
+		taskName, // name
+		false,    // durable
+		false,    // delete when unused
+		false,    // exclusive
+		false,    // no-wait
+		nil,      // arguments
 	)
 	failOnError(err, "Failed to declare a queue")
 

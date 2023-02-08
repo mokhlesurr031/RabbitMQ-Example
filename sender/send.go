@@ -14,11 +14,11 @@ func failOnError(err error, msg string) {
 	}
 }
 
-func Send(ch *amqp.Channel, q amqp.Queue) {
+func Send(ch *amqp.Channel, q amqp.Queue, taskBody string) {
 	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
 	defer cancel()
 
-	body := "Hello World!"
+	body := taskBody
 	err := ch.PublishWithContext(ctx,
 		"",     // exchange
 		q.Name, // routing key

@@ -21,9 +21,7 @@ func MQ() *RMQ {
 	return &mq
 }
 
-// LoadDB loads database configuration
-func loadRMQ() {
-	//viper.AddConfigPath("conf")
+func LoadRMQ() {
 	viper.SetConfigFile("config.yml")
 	er := viper.ReadInConfig()
 	if er != nil {

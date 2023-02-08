@@ -1,13 +1,11 @@
 package cmd
 
 import (
+	"github.com/RabbitMQ-Example/config"
 	"github.com/spf13/cobra"
 )
 
 var (
-	// cfgFile store the configuration file name
-	//cfgFile                 string
-	//verbose, prettyPrintLog bool
 	rootCmd = &cobra.Command{
 		Use:   "mq",
 		Short: "RabbitMQ on test",
@@ -15,16 +13,10 @@ var (
 	}
 )
 
-//func init() {
-//	cobra.OnInitialize(initConfig)
-//}
-//
-//func initConfig() {
-//	log.Println("Loading configurations")
-//	log.Println("Configurations loaded successfully!")
-//}
+func init() {
+	config.LoadRMQ()
+}
 
-// Execute executes the root command.
 func Execute() error {
 	return rootCmd.Execute()
 }
